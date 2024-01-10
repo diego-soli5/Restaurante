@@ -1,0 +1,60 @@
+﻿@model List<Restaurante.Web.Models.Cliente.ClienteDTO>
+
+<table class="table table-sm table-bordered table-hover table-responsive-sm table-responsive-md">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Primer Apellido</th>
+            <th>Segundo Apellido</th>
+            <th>Número de Teléfono</th>
+            <th>Correo Electrónico</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count > 0)
+        {
+            @foreach (var cliente in Model)
+            {
+                <tr class="border pointer">
+                    <td>
+                        @cliente.Id
+                    </td>
+                    <td>@cliente.TcNombre</td>
+                    <td>@cliente.TcAp1</td>
+                    <td>@cliente.TcAp2</td>
+                    <td>@cliente.TcNumTelefono</td>
+                    <td>@cliente.TcCorreoElectronico</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-xl-12 text-center">
+                                <a asp-controller="Cliente" asp-action="Eliminar" asp-route-id="@cliente.Id" class="btn btn-danger btn-sm" id="btnEliminar"><i class="fa fa-trash"></i></a>
+                                <button data-id="@cliente.Id"
+                                        data-TcNombre="@cliente.TcNombre"
+                                        data-TcAp1="@cliente.TcAp1"
+                                        data-TcAp2="@cliente.TcAp2"
+                                        data-TcNumTelefono="@cliente.TcNumTelefono"
+                                        data-TcCorreoElectronico="@cliente.TcCorreoElectronico"
+                                        class="btn btn-info btn-sm" 
+                                        id="btnEditar" 
+                                        data-toggle="modal" 
+                                        data-target="#modalEditar"><i class="fa fa-edit"></i></button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="7" class="text-center"><span class="text-danger">No hay datos disponibles.</span></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="col-sm-12">
+    <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalCrear">Agregar Nuevo</button>
+</div>
+

@@ -1,0 +1,64 @@
+﻿@model List<Restaurante.Web.Models.Usuario.UsuarioDTO>
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+
+<div class="card card-blue">
+    <div class="card-header">
+        <h4>Gestionar @ViewData["Title"]</h4>
+    </div>
+    <div class="card-body">
+        <div class="col-sm-12">
+            <div class="row" id="tblUsuarios">
+                @{
+                    await Html.RenderPartialAsync("_ListadoUsuariosPartial", Model);
+                }
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalRegistrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Registrar Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data" id="frmRegistrar">
+                    <div class="form-group">
+                        <label for="TcNombre">Nombre</label>
+                        <input maxlength="60" type="text" class="form-control" name="TcNombre" id="TcNombre" placeholder="Nombre" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="TcNombreUsuario">Nombre de Usuario</label>
+                        <input maxlength="60" type="text" class="form-control" name="TcNombreUsuario" id="TcNombreUsuario" placeholder="Nombre de Usuario" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="TcCorreoElectronico">Correo Electronico</label>
+                        <input maxlength="100" type="email" class="form-control" name="TcCorreoElectronico" id="TcCorreoElectronico" placeholder="Correo Electronico" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="TcContrasena">Contraseña</label>
+                        <input maxlength="60" type="password" class="form-control" name="TcContrasena" id="TcContrasena" placeholder="Contraseña" required />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="frmRegistrar" id="btnSave">Registrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/usuario.js"></script>
+}

@@ -1,0 +1,43 @@
+﻿@model List<Restaurante.Web.Models.Mesa.MesaDTO>
+
+<table class="table table-sm table-bordered table-hover table-responsive-sm table-responsive-md">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Descripción</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count > 0)
+        {
+            @foreach (var mesa in Model)
+            {
+                <tr class="border pointer">
+                    <td>
+                        @mesa.Id
+                    </td>
+                    <td>@mesa.TcDscMesa</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-xl-12 text-center">
+                                <a asp-controller="Mesa" asp-action="Eliminar" asp-route-id="@mesa.Id" class="btn btn-danger btn-sm" id="btnEliminar"><i class="fa fa-trash"></i></a>
+                                <button data-id="@mesa.Id" data-TcDscMesa="@mesa.TcDscMesa" class="btn btn-info btn-sm" id="btnEditar" data-toggle="modal" data-target="#modalEditar"><i class="fa fa-edit"></i></button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3" class="text-center"><span class="text-danger">No hay datos disponibles.</span></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="col-sm-12">
+    <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalCrear">Agregar Nueva</button>
+</div>
+

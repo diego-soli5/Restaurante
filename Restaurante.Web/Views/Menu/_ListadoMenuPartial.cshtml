@@ -1,0 +1,54 @@
+﻿@model List<Restaurante.Web.Models.Menu.MenuDTO>
+
+<table class="table table-sm table-bordered table-hover table-responsive-sm table-responsive-md">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Descripción</th>
+            <th>Tipo Menu</th>
+            <th>Precio</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count > 0)
+        {
+            @foreach (var menu in Model)
+            {
+                <tr class="border pointer">
+                    <td>
+                        @menu.Id
+                    </td>
+                    <td>@menu.TcDscMenu</td>
+                    <td>@menu.TcDscTipoMenu</td>
+                    <td>@menu.TdPrecio</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-xl-12 text-center">
+                                <a asp-controller="Menu" asp-action="Eliminar" asp-route-id="@menu.Id" class="btn btn-danger btn-sm" id="btnEliminar"><i class="fa fa-trash"></i></a>
+                                <button data-id="@menu.Id" 
+                                        data-TcDscMenu="@menu.TcDscMenu"
+                                        data-TdPrecio="@menu.TdPrecio"
+                                        data-TnIdTipoMenu="@menu.TnIdTipoMenu"
+                                        class="btn btn-info btn-sm" 
+                                        id="btnEditar" 
+                                        data-toggle="modal" 
+                                        data-target="#modalEditar"><i class="fa fa-edit"></i></button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center"><span class="text-danger">No hay datos disponibles.</span></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="col-sm-12">
+    <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalCrear">Agregar Nuevo</button>
+</div>
+

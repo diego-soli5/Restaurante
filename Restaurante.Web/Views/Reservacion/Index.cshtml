@@ -1,0 +1,120 @@
+﻿@model Restaurante.Web.ViewModels.Reservacion.ReservacionViewModel
+@{
+    ViewData["Title"] = "Reservaciones";
+    var resMap = new Restaurante.Web.Models.Reservacion.ReservacionDTO();
+}
+
+<div class="card card-blue">
+    <div class="card-header">
+        <h4>Gestionar @ViewData["Title"]</h4>
+    </div>
+    <div class="card-body">
+        <div class="col-sm-12">
+            <div class="row" id="tblDatos">
+                @{
+                    await Html.RenderPartialAsync("_ListadoReservacionPartial", Model.Reservaciones);
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalCrear" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Reservación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data" id="frmCrear">
+                    <div class="form-group">
+                        <label for="TnIdCliente">Cliente</label>
+                        @Html.DropDownList("TnIdCliente", Model.ClienteSelectListItems, "Seleccionar Cliente", new { @class = "form-control", required = "" })
+                    </div>
+                    <div class="form-group">
+                        <label for="TnIdMesa">Mesa</label>
+                        @Html.DropDownList("TnIdMesa", Model.MesaSelectListItems, "Seleccionar Mesa", new { @class = "form-control", required = "" })
+                    </div>
+                    <div class="form-group">
+                        <label for="TnIdMenu">Menu</label>
+                        @Html.DropDownList("TnIdMenu", Model.MenuSelectListItems, "Seleccionar Menu",  new { @class = "form-control", required = "" })
+                    </div>
+                    <div class="form-group">
+                        <label for="TdPrecio">Cantidad</label>
+                        <input type="number" min="1" max="300" class="form-control" name="TnCantidad" id="TnCantidad" placeholder="Cantidad" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="TfFecReserva">Fecha de Reservación</label>
+                        <input type="date" class="form-control" name="TfFecReserva" id="TfFecReserva" placeholder="Fecha de Reservación" required />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="frmCrear" id="btnSave">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Editar Reservación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data" id="frmEditar">
+                    <input type="hidden" name="Id" id="Id" />
+                    <div class="form-group">
+                        <label for="Id2">Id</label>
+                        <input type="number" class="form-control" name="Id2" id="Id2" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label for="TnIdCliente">Cliente</label>
+                        @Html.DropDownList("TnIdCliente", Model.ClienteSelectListItems, "Seleccionar Cliente", new { @class = "form-control", id="TnIdClienteEdit", required = "" })
+                    </div>
+                    <div class="form-group">
+                        <label for="TnIdMesa">Mesa</label>
+                        @Html.DropDownList("TnIdMesa", Model.MesaSelectListItems, "Seleccionar Mesa", new { @class = "form-control",id="TnIdMesaEdit", required = "" })
+                    </div>
+                    <div class="form-group">
+                        <label for="TnIdMenu">Menu</label>
+                        @Html.DropDownList("TnIdMenu", Model.MenuSelectListItems, "Seleccionar Menu",  new { @class = "form-control", id="TnIdMenuEdit", required = "" })
+                    </div>
+                    <div class="form-group">
+                        <label for="TdPrecio">Cantidad</label>
+                        <input type="number" min="1" max="300" class="form-control" name="TnCantidad" id="TnCantidadEdit" placeholder="Cantidad" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="TfFecReserva">Fecha de Reservación</label>
+                        <input type="date" class="form-control" name="TfFecReserva" id="TfFecReservaEdit" placeholder="Fecha de Reservación" required />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="frmEditar" id="btnAgregar">Editar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/reservacion.js"></script>
+    @if (ViewData["modalCreate"]?.ToString() == "S")
+    {
+        <script>
+            $("#modalCrear").modal();
+        </script>
+    }
+}

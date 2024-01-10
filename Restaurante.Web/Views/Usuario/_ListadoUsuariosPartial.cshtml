@@ -1,0 +1,46 @@
+﻿@model List<Restaurante.Web.Models.Usuario.UsuarioDTO>
+
+<table class="table table-sm table-bordered table-hover table-responsive-sm table-responsive-md">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Nombre de Usuario</th>
+            <th>Correo Electronico</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count > 0)
+        {
+            @foreach (var usuario in Model)
+            {
+                <tr class="border pointer">
+                    <td>
+                        @usuario.Id
+                    </td>
+                    <td>@usuario.TcNombre</td>
+                    <td>@usuario.TcNombreUsuario</td>
+                    <td>@usuario.TcCorreoElectronico</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-xl-12 text-center">
+                                <a asp-controller="Usuario" asp-action="Eliminar" asp-route-id="@usuario.Id" class="btn btn-danger btn-sm" id="btnEliminarUsr"><i class="fa fa-trash"></i></a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center"><span class="text-danger">No hay datos disponibles.</span></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="col-sm-12">
+    <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalRegistrar">Registrar Nuevo</button>
+</div>
+

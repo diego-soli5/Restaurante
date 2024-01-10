@@ -1,0 +1,62 @@
+﻿@model List<Restaurante.Web.Models.Reservacion.ReservacionDTO>
+
+<table class="table table-sm table-bordered table-hover table-responsive-sm table-responsive-md">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Cliente</th>
+            <th>Mesa</th>
+            <th>Menu</th>
+            <th>Cantidad</th>
+            <th>Fecha Reservación</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count > 0)
+        {
+            @foreach (var reservacion in Model)
+            {
+                <tr class="border pointer">
+                    <td>
+                        @reservacion.Id
+                    </td>
+                    <td>@reservacion.TcNombre</td>
+                    <td>@reservacion.TcDscMesa</td>
+                    <td>@reservacion.TcDscMenu</td>
+                    <td>@reservacion.TnCantidad</td>
+                    <td>@reservacion.TfFecReserva.ToShortDateString()</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-xl-12 text-center">
+                                <a asp-controller="Reservacion" asp-action="Eliminar" asp-route-id="@reservacion.Id" class="btn btn-danger btn-sm" id="btnEliminar"><i class="fa fa-trash"></i></a>
+                                <button data-id="@reservacion.Id"
+                                        data-TnIdCliente="@reservacion.TnIdCliente"
+                                        data-TnIdMesa="@reservacion.TnIdMesa"
+                                        data-TnIdMenu="@reservacion.TnIdMenu"
+                                        data-TnCantidad="@reservacion.TnCantidad"
+                                        data-TfFecReserva="@reservacion.TfFecReserva.ToShortDateString()"
+                                        class="btn btn-info btn-sm"
+                                        id="btnEditar"
+                                        data-toggle="modal"
+                                        data-target="#modalEditar">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="7" class="text-center"><span class="text-danger">No hay datos disponibles.</span></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="col-sm-12">
+    <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalCrear">Agregar Nueva</button>
+</div>
+

@@ -1,0 +1,113 @@
+﻿@model List<Restaurante.Web.Models.Cliente.ClienteDTO>
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+<div class="card card-blue">
+    <div class="card-header">
+        <h4>Gestionar @ViewData["Title"]</h4>
+    </div>
+    <div class="card-body">
+        <div class="col-sm-12">
+            <div class="row" id="tblDatos">
+                @{
+                    await Html.RenderPartialAsync("_ListadoClientePartial", Model);
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalCrear" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data" id="frmCrear">
+                    <div class="form-group">
+                        <label for="TcNombre">Nombre</label>
+                        <input maxlength="60" type="text" class="form-control" name="TcNombre" id="TcNombre" placeholder="Nombre" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="TcAp1">Primer Apellido</label>
+                        <input maxlength="60" type="text" class="form-control" name="TcAp1" id="TcAp1" placeholder="Primer Apellido" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="TcAp2">Segundo Apellido</label>
+                        <input maxlength="60" type="text" class="form-control" name="TcAp2" id="TcAp2" placeholder="Segundo Apellido" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="TcNumTelefono">Número de Teléfono</label>
+                        <input maxlength="15" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" class="form-control" name="TcNumTelefono" id="TcNumTelefono" placeholder="Número de Teléfono" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="TcCorreoElectronico">Correo Electrónico</label>
+                        <input maxlength="100" type="text" class="form-control" name="TcCorreoElectronico" id="TcCorreoElectronico" placeholder="Correo Electrónico" required />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="frmCrear" id="btnSave">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Editar Cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data" id="frmEditar">
+                    <input type="hidden" name="Id" id="Id" />
+                    <div class="form-group">
+                        <label for="TcNombre">Id</label>
+                        <input maxlength="60" type="text" class="form-control" name="Id2" id="Id2" placeholder="Id" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label for="TcNombre">Nombre</label>
+                        <input maxlength="60" type="text" class="form-control" name="TcNombre" id="TcNombreEdit" placeholder="Nombre" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="TcAp1">Primer Apellido</label>
+                        <input maxlength="60" type="text" class="form-control" name="TcAp1" id="TcAp1Edit" placeholder="Primer Apellido" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="TcAp2">Segundo Apellido</label>
+                        <input maxlength="60" type="text" class="form-control" name="TcAp2" id="TcAp2Edit" placeholder="Segundo Apellido" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="TcNumTelefono">Número de Teléfono</label>
+                        <input maxlength="15" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" class="form-control" name="TcNumTelefono" id="TcNumTelefonoEdit" placeholder="Número de Teléfono" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="TcCorreoElectronicoEdit">Correo Electrónico</label>
+                        <input maxlength="100" type="email" class="form-control" name="TcCorreoElectronico" id="TcCorreoElectronicoEdit" placeholder="Correo Electrónico" required />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="frmEditar" id="btnAgregar">Editar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/cliente.js"></script>
+}
